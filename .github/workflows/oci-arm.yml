@@ -31,7 +31,7 @@ jobs:
           
       - name: Create .env file
         run: |
-          cat > .env << EOF
+          cat > .env << 'EOF'
           OCI_REGION=${{ secrets.OCI_REGION }}
           OCI_USER_ID=${{ secrets.OCI_USER_ID }}
           OCI_TENANCY_ID=${{ secrets.OCI_TENANCY_ID }}
@@ -44,9 +44,9 @@ jobs:
           OCI_MEMORY_IN_GBS=24
           OCI_BOOT_VOLUME_SIZE_IN_GBS=200
           OCI_BOOT_VOLUME_VPU=10
-          OCI_SSH_PUBLIC_KEY=${{ secrets.OCI_SSH_PUBLIC_KEY }}
           OCI_COMPARTMENT_ID=${{ secrets.OCI_COMPARTMENT_ID }}
           EOF
+          echo "OCI_SSH_PUBLIC_KEY=\"${{ secrets.OCI_SSH_PUBLIC_KEY }}\"" >> .env
           
       - name: Run instance launcher
         run: php index.php
